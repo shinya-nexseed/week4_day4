@@ -3,6 +3,20 @@
     mysqli_set_charset($db, 'utf8');
 ?>
 
+<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = mysqli_real_escape_string($db, $_POST['name']);
+        $comment = mysqli_real_escape_string($db, $_POST['comment']);
+
+        $sql = sprintf('INSERT INTO messages SET name="%s", comment="%s", created_at="%s" ',
+            $name,
+            $comment,
+            date('Y-m-d H:i:s')
+        );
+        mysqli_query($db, $sql);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
