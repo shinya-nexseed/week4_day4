@@ -43,6 +43,9 @@
                 mysqli_query($db, $sql);
                 $_SESSION['name'] = $name;
 
+                header('Location: http://' .$_SERVER['HTTP_HOST'] .$_SERVER['REQUEST_URI']);
+                // 'Location: http://' . '192.168.33.10' . '/online_bbs_ver2/bbs.php'
+                // 'Location: http://192.168.33.10/online_bbs_ver2/bbs.php'
             }
         }
     }
