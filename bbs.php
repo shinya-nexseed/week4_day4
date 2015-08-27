@@ -4,12 +4,13 @@
 ?>
 
 <?php
+
+    // 入力されていなかった場合にエラー文をためておくための配列
+    $errors = array();
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = mysqli_real_escape_string($db, $_POST['name']);
         $comment = mysqli_real_escape_string($db, $_POST['comment']);
-
-        // 入力されていなかった場合にエラー文をためておくための配列
-        $errors = array();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // 名前が入力されているかのチェック
@@ -56,12 +57,23 @@
 <head>
   <meta charset="UTF-8">
   <title>ひとこと掲示版</title>
+  <!-- cssの読み込み -->
+  <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
 </head>
 <body>
   <h1>ひとこと掲示版</h1>
   <form action="bbs.php" method="post">
+    <?php if (count($errors) > 0): ?>
+    <ul class="error_list">
+      <?php foreach ($errors as $error): ?>
+      <li>
+        <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
+      </li>
+      <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
     名前: <input type="text" name="name"><br>
-    ひとこと: <input type="text" name="comment" size="60"><br>
+    ひとこと: <input type="text" name="comment"><br>
     <input type="submit" name="submit" value="送信">
   </form>
 
