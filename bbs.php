@@ -65,12 +65,17 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 bg-green">
         <h1>ひとこと掲示版</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4 col-md-offset-4 bg-red">
+        ほげほげ
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 bg-blue">
         <form action="bbs.php" method="post">
           <?php if (count($errors) > 0): ?>
           <ul class="error_list">
@@ -86,7 +91,7 @@
           <input type="submit" name="submit" value="送信">
         </form>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 bg-green">
         <?php
             $sql = "SELECT * FROM `messages` ORDER BY `created_at` DESC";
             $result = mysqli_query($db,$sql) or die(mysqli_error($db));

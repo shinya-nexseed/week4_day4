@@ -1,3 +1,16 @@
 .error_list {
   color: red;
 }
+
+/* デバッグ用 */
+.bg-red {
+  background-color: red;
+}
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-green {
+  background-color: green;
+}
