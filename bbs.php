@@ -65,36 +65,40 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-4">ほげほげ</div>
-      <div class="col-md-8">もげもげ</div>
+      <div class="col-md-12">
+        <h1>ひとこと掲示版</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <form action="bbs.php" method="post">
+          <?php if (count($errors) > 0): ?>
+          <ul class="error_list">
+            <?php foreach ($errors as $error): ?>
+            <li>
+              <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
+            </li>
+            <?php endforeach; ?>
+          </ul>
+          <?php endif; ?>
+          名前: <input type="text" name="name"><br>
+          ひとこと: <input type="text" name="comment"><br>
+          <input type="submit" name="submit" value="送信">
+        </form>
+      </div>
+      <div class="col-md-8">
+        <?php
+            $sql = "SELECT * FROM `messages` ORDER BY `created_at` DESC";
+            $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+        ?>
+
+        <ul>
+          <?php while ($post = mysqli_fetch_assoc($result)): ?>
+          <li><?php echo $post['name']; ?>: <?php echo $post['comment'] ?></li>
+          <?php endwhile; ?>
+        </ul>
+      </div>
     </div>
   </div>
-  <h1>ひとこと掲示版</h1>
-  <form action="bbs.php" method="post">
-    <?php if (count($errors) > 0): ?>
-    <ul class="error_list">
-      <?php foreach ($errors as $error): ?>
-      <li>
-        <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
-      </li>
-      <?php endforeach; ?>
-    </ul>
-    <?php endif; ?>
-    名前: <input type="text" name="name"><br>
-    ひとこと: <input type="text" name="comment"><br>
-    <input type="submit" name="submit" value="送信">
-  </form>
-
-  <?php
-      $sql = "SELECT * FROM `messages` ORDER BY `created_at` DESC";
-      $result = mysqli_query($db,$sql) or die(mysqli_error($db));
-  ?>
-
-  <ul>
-    <?php while ($post = mysqli_fetch_assoc($result)): ?>
-    <li><?php echo $post['name']; ?>: <?php echo $post['comment'] ?></li>
-    <?php endwhile; ?>
-  </ul>
-
 </body>
 </html>
