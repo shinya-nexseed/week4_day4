@@ -58,11 +58,44 @@
   <meta charset="UTF-8">
   <title>ひとこと掲示版</title>
   <!-- cssの読み込み -->
-  <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
   <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
 </head>
 <body>
+  <!-- ググって適当なテンプレから引っ張ってくる -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-slide-dropdown">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">ひとこと掲示版</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-slide-dropdown">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Link</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
   <div class="container">
     <div class="row">
       <div class="col-md-12 bg-green">
@@ -105,5 +138,25 @@
       </div>
     </div>
   </div>
+
+  <!-- jQuery (JavaScript plugin) https://jquery.com/download/ -->
+  <script type="text/javascript" src="assets/js/jquery-1.11.3.js"></script>
+  <!-- Included other js files -->
+  <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $(".dropdown").hover(            
+            function() {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop( true, true ).slideDown("fast");
+                $(this).toggleClass('open');        
+            },
+            function() {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop( true, true ).slideUp("fast");
+                $(this).toggleClass('open');       
+            }
+        );
+    });
+  </script>
+
 </body>
 </html>
