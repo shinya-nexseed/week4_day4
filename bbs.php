@@ -59,8 +59,16 @@
   <title>ひとこと掲示版</title>
   <!-- cssの読み込み -->
   <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+  <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">ほげほげ</div>
+      <div class="col-md-8">もげもげ</div>
+    </div>
+  </div>
   <h1>ひとこと掲示版</h1>
   <form action="bbs.php" method="post">
     <?php if (count($errors) > 0): ?>
