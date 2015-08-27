@@ -16,5 +16,17 @@
     ひとこと: <input type="text" name="comment" size="60"><br>
     <input type="submit" name="submit" value="送信">
   </form>
+
+  <?php
+      $sql = "SELECT * FROM `messages` ORDER BY `created_at` DESC";
+      $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+  ?>
+
+  <ul>
+    <?php while ($post = mysqli_fetch_assoc($result)): ?>
+    <li><?php echo $post['name']; ?>: <?php echo $post['comment'] ?></li>
+    <?php endwhile; ?>
+  </ul>
+
 </body>
 </html>
