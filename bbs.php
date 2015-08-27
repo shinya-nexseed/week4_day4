@@ -61,6 +61,7 @@
   <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/form.css">
 </head>
 <body>
   <!-- ググって適当なテンプレから引っ張ってくる -->
@@ -98,33 +99,43 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12 bg-green">
+      <div class="col-md-12">
         <h1>ひとこと掲示版</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 col-md-offset-4 bg-red">
+      <div class="col-md-4 col-md-offset-4">
         ほげほげ
       </div>
     </div>
+    <!-- http://bootsnipp.com/snippets/featured/input-validation-colorful-input-groups -->
     <div class="row">
-      <div class="col-md-4 bg-blue">
+      <div class="col-md-4">
         <form action="bbs.php" method="post">
-          <?php if (count($errors) > 0): ?>
-          <ul class="error_list">
-            <?php foreach ($errors as $error): ?>
-            <li>
-              <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
-            </li>
-            <?php endforeach; ?>
-          </ul>
-          <?php endif; ?>
-          名前: <input type="text" name="name"><br>
-          ひとこと: <input type="text" name="comment"><br>
-          <input type="submit" name="submit" value="送信">
+
+          <div class="form-group">
+            <label for="validate-text">名前</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="name" id="validate-text" placeholder="つぶやき..." required>
+              <span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="validate-length">ひとこと</label>
+            <div class="input-group" data-validate="length" data-length="1">
+              <textarea type="text" class="form-control" name="comment" id="validate-length" placeholder="Validate Length" required></textarea>
+              <span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
+            </div>
+          </div>
+          
+          <div class="row">
+            <button type="submit" class="btn btn-primary col-xs-3 col-xs-offset-8" disabled>つぶやく</button>  
+          </div>
+          
         </form>
       </div>
-      <div class="col-md-8 bg-green">
+      <div class="col-md-8">
         <?php
             $sql = "SELECT * FROM `messages` ORDER BY `created_at` DESC";
             $result = mysqli_query($db,$sql) or die(mysqli_error($db));
@@ -143,6 +154,7 @@
   <script type="text/javascript" src="assets/js/jquery-1.11.3.js"></script>
   <!-- Included other js files -->
   <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+  <script type="text/javascript" src="assets/js/form.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
         $(".dropdown").hover(            
