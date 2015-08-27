@@ -8,12 +8,43 @@
         $name = mysqli_real_escape_string($db, $_POST['name']);
         $comment = mysqli_real_escape_string($db, $_POST['comment']);
 
-        $sql = sprintf('INSERT INTO messages SET name="%s", comment="%s", created_at="%s" ',
-            $name,
-            $comment,
-            date('Y-m-d H:i:s')
-        );
-        mysqli_query($db, $sql);
+        // 入力されていなかった場合にエラー文をためておくための配列
+        $errors = array();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // 名前が入力されているかのチェック
+            $name = null;
+            if (!isset($_POST['name']) || !strlen($_POST['name'])) {
+                $errors['name'] = '名前を入力して下さい';
+            } elseif (strlen($_POST['name']) > 40) {
+                $errors['name'] = '名前は40文字以内で入力して下さい';
+            } else {
+                $name = mysqli_real_escape_string($db, $_POST['name']);
+            }
+
+            // ひとことが入力されているかのチェック
+            $comment = null;
+            if (!isset($_POST['comment']) || !strlen($_POST['comment'])) {
+                $errors['comment'] = 'ひとことを入力して下さい';
+            } elseif (strlen($_POST['comment']) > 40) {
+                $errors['comment'] = 'ひとことは200文字以内で入力して下さい';
+            } else {
+                $comment = mysqli_real_escape_string($db, $_POST['comment']);
+            }
+
+            // エラーがなければ保存
+            if (count($errors) === 0) {
+                // 保存処理
+                $sql = sprintf('INSERT INTO messages SET name="%s", comment="%s", created_at="%s" ',
+                    $name,
+                    $comment,
+                    date('Y-m-d H:i:s')
+                );
+                mysqli_query($db, $sql);
+                $_SESSION['name'] = $name;
+
+            }
+        }
     }
 ?>
 
