@@ -5,14 +5,6 @@
 ?>
 
 <?php
-    $_SESSION['name'] = 'shinyahirai';
-
-    if (isset($_SESSION['name'])) {
-        echo $_SESSION['name'];
-    } else {
-        echo '$_SESSION["name"]は未定義';
-    }
-
     // 入力されていなかった場合にエラー文をためておくための配列
     $errors = array();
 
@@ -120,7 +112,17 @@
           <div class="form-group">
             <label for="validate-text">名前</label>
             <div class="input-group">
-              <input type="text" class="form-control" name="name" id="validate-text" placeholder="つぶやき..." required>
+              <?php 
+                  if (isset($_SESSION['name'])) {
+                      $inputName = sprintf('<input type="text" class="form-control" name="name" id="validate-text" placeholder="Validate Text" value="%s" required>',
+                          $_SESSION['name']
+                      ); 
+                      echo $inputName;
+                  } else {
+                      echo '<input type="text" class="form-control" name="name"
+                       id="validate-text" placeholder="Validate Text" required>';
+                  }
+              ?>
               <span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
             </div>
           </div>
