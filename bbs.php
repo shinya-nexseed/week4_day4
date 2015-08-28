@@ -62,6 +62,7 @@
   <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
   <link rel="stylesheet" type="text/css" href="assets/css/form.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/timeline.css">
 </head>
 <body>
   <!-- ググって適当なテンプレから引っ張ってくる -->
@@ -103,11 +104,6 @@
         <h1>ひとこと掲示版</h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        ほげほげ
-      </div>
-    </div>
     <!-- http://bootsnipp.com/snippets/featured/input-validation-colorful-input-groups -->
     <div class="row">
       <div class="col-md-4">
@@ -135,17 +131,35 @@
           
         </form>
       </div>
+      <!-- http://bootsnipp.com/snippets/featured/single-column-timeline-dotted -->
       <div class="col-md-8">
         <?php
-            $sql = "SELECT * FROM `messages` ORDER BY `created_at` DESC";
-            $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+            $sql = 'SELECT * FROM `messages` ORDER BY `created_at` DESC';
+            $results = mysqli_query($db, $sql) or die(mysqli_error($db));
         ?>
-
-        <ul>
-          <?php while ($post = mysqli_fetch_assoc($result)): ?>
-          <li><?php echo $post['name']; ?>: <?php echo $post['comment'] ?></li>
+        <div class="timeline-centered">
+          <?php while ($message = mysqli_fetch_assoc($results)): ?>
+          <article class="timeline-entry">
+            <div class="timeline-entry-inner">
+              <div class="timeline-icon bg-info">
+                <i class="entypo-feather"></i>
+              </div>
+              <div class="timeline-label">
+                <h2><a href="#"><?php echo $message['name'] ?></a> <span><?php echo $message['created_at']; ?></span></h2>
+                <p><?php echo $message['comment'] ?></p>
+              </div>
+            </div>
+          </article>
           <?php endwhile; ?>
-        </ul>
+
+          <article class="timeline-entry begin">
+            <div class="timeline-entry-inner">
+              <div class="timeline-icon" style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);">
+                <i class="entypo-flight"></i> +
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </div>
