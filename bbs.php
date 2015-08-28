@@ -1,9 +1,17 @@
 <?php
+    session_start();
     $db = mysqli_connect('localhost', 'root', 'mysql', 'online_bbs_ver2') or die(mysqli_connect_error());
     mysqli_set_charset($db, 'utf8');
 ?>
 
 <?php
+    $_SESSION['name'] = 'shinyahirai';
+
+    if (isset($_SESSION['name'])) {
+        echo $_SESSION['name'];
+    } else {
+        echo '$_SESSION["name"]は未定義';
+    }
 
     // 入力されていなかった場合にエラー文をためておくための配列
     $errors = array();
